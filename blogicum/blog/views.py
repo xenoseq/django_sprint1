@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404
 
 posts = [
     {
@@ -42,11 +43,14 @@ posts = [
                 укутывал их, чтобы не испортились от дождя.''',
     },
 ]
+dict_posts = {post['id']: post for post in posts}
 
-
-def post_detail(request, id):
+def post_detail(request, post_id):
     template = 'blog/detail.html'
-    context = {'post': posts[id]}
+    try:
+        context = {'post': dict_posts[post_id]}
+    except KeyError:
+        raise Http404('Post does not exist')
     return render(request, template, context)
 
 
