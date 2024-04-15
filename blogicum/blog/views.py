@@ -45,6 +45,7 @@ posts = [
 ]
 dict_posts = {post['id']: post for post in posts}
 
+
 def post_detail(request, post_id):
     template = 'blog/detail.html'
     try:
